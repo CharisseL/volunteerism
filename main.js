@@ -7,8 +7,13 @@ document.addEventListener('DOMContentLoaded', function(){
   $pick.addEventListener('click', function(){
 		
   	if ($select.value === 'randomStudent') {
-	    alert('hi');
+      var rand = getRandomInt(0, students.length);
+			var randomStudent = students[rand];
+	    alert(randomStudent);
 		}
 	});
 });
 
+function getRandomInt(min, max) {
+  return Math.floor(Math.random() * (max - min)) + min;
+}
