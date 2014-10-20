@@ -1,8 +1,6 @@
-
 function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
 }
-
 //add student to list
 function addItemToList($list, itemText){
 	var $li = document.createElement('li');
@@ -17,7 +15,6 @@ function neighborGrouping(list, groupSize, target){
 					addItemToList(target, listItems.join(' &amp; '));
 				}
 }
-
 function arrayShuffle(array){
 	var arrayClone = array.slice(0);
 	var temp;
@@ -28,11 +25,13 @@ function arrayShuffle(array){
 		arrayClone[rand] = temp;
 	}
 	return arrayClone;
-
 }
-
 function show(element){
 	element.classList.remove('hidden');						
+}
+
+function hide(element){
+	element.classList.add('hidden');
 }
 
 //add eventListener..what happens on the click
@@ -41,7 +40,7 @@ document.addEventListener('DOMContentLoaded', function(){
 	var students = ['charisse', 'evan', 'greg','jessica', 'luke', 'gerald', 'adam', 'sonda', 'beck', 'leon'];
 
 	var $select = $form.querySelector('select');
-	var $numBox = $form.querySelector('input [type='number']');
+	var $numBox = $form.querySelector('input[type=number]');
 	$select.addEventListener('change', function (event){
 		if (event.currentTarget.value === 'randN'){
 			show($numBox);
@@ -49,7 +48,6 @@ document.addEventListener('DOMContentLoaded', function(){
 				hide($numBox);
 			}
 		});
-
 	$form.addEventListener('submit', function(event){
 		event.preventDefault();
 		var $ul = document.getElementById('results');
@@ -62,14 +60,16 @@ document.addEventListener('DOMContentLoaded', function(){
 			addItemToList($ul, studentName);
 		} else if (groupCriteria === 'neighbor-pairing') {
 				neighborGrouping(students, 2, $ul);
-
 		} else if (groupCriteria === 'team-three') {
-				neigborGrouping(students, 3, $ul);
+				neighborGrouping(students, 3, $ul);
 		}else if(groupCriteria === 'randPair'){
 			var shuffledStudents = arrayShuffle(students);
 			neighborGrouping(shuffledStudents, 2, $ul);
 		}else if(groupCriteria === 'randN'){
-
+			var shuffledStudents = arrayShuffle(students);
+			neighborGrouping(shuffledStudents, 4, $ul);
+			
+		
 		}
 			
 	});
