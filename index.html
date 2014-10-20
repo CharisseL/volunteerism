@@ -6,16 +6,18 @@
 		<link rel="stylesheet" type="text/css" href="styles/main.css">
 	</head>
 	<body>
-			<h2>Volunteerism: The App</h2> 
-			<select id="pairings">
-				<option value="randomStudent">Random Student</option>
-				<option value="neighborPairing">Neighbor Pairing</option>
-				<option value="random3">Teams of Three</option>
-				<option value="randomPair">Random Pairing</option>
-				<option value="randomGroup">Random Number Pairing</option>
-			</select>
-			
-      <input type="submit" class="pick" value="Pick">
+			<h2>Volunteerism: The App</h2>
+			<form id="generate-group"> 
+				<select id="pairings">
+					<option value="random-student">Random Student</option>
+					<option value="neighbor-pairing">Neighbor Pairing</option>
+					<option value="random3">Teams of Three</option>
+					<option value="randomPair">Random Pairing</option>
+					<option value="randomGroup">Random Number Pairing</option>
+				</select>
+      <input type="submit" value="Pick">
+		</form>
+		<ul id="results">
 		<script src="main.js"></script>		
 	</body>
 </html>			
