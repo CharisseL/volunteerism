@@ -51,10 +51,7 @@ function hide(element){
 //add eventListener..what happens on the click
 document.addEventListener('DOMContentLoaded', function(){
   var $form = document.getElementById('generate-group');
-	var students;
-	getJSON('https://volunteerism-cnl.firebaseio.com/students.json', function(data){
-		students = data;
-	});
+	
 	var $select = $form.querySelector('select');
 	var $numBox = $form.querySelector('input[type=number]');
 	$select.addEventListener('change', function (event){
@@ -66,28 +63,36 @@ document.addEventListener('DOMContentLoaded', function(){
 		});
 	$form.addEventListener('submit', function(event){
 		event.preventDefault();
+		
+		getJSON('https://volunteerism-cnl.firebaseio.com/students.json', function(data){
+		var	students = data;
+		var shuffledStudents;
+		
 		var $ul = document.getElementById('results');
 		$ul.innerHTML = '';				//print the name in an ul in the DOM
 
 		var groupCriteria = $form.querySelector('select').value;
-		if(groupCriteria === 'random-student'){		//if random-student is selected, then 
-			var studentNumber = getRandomInt (0, students.length);		//run this & pick random student [i] 
-			var studentName = students[studentNumber]; 	//student name will be name in [index position]
-			addItemToList($ul, studentName);
-		} else if (groupCriteria === 'neighbor-pairing') {
-				neighborGrouping(students, 2, $ul);
-		} else if (groupCriteria === 'team-three') {
-				neighborGrouping(students, 3, $ul);
-		}else if(groupCriteria === 'randPair'){
-			var shuffledStudents = arrayShuffle(students);
-			neighborGrouping(shuffledStudents, 2, $ul);
-		}else if(groupCriteria === 'randN'){
-			var shuffledStudents = arrayShuffle(students);
-			neighborGrouping(shuffledStudents, 4, $ul);
-			
 		
-		}
-			
+		switch(groupCriteria){		//if random-student is selected, then 
+			case 'random-student':	
+				var studentNumber = getRandomInt (0, students.length); 
+				var studentName = students[studentNumber];
+				addItemToList($ul, studentName);
+				break;
+			case 'neighbor-pairing': 
+				neighborGrouping(students, 2, $ul);
+				break;	
+			case 'team-three': 
+				neighborGrouping(students, 3, $ul);
+				break;
+		  case 'randPair':
+				shuffledStudents = arrayShuffle(students);
+				neighborGrouping(shuffledStudents, 2, $ul);
+	 		case 'randN':
+				shuffledStudents = arrayShuffle(students);
+				neighborGrouping(shuffledStudents, $numBox.value, $ul);
+			}
+		});
 	});
 });
 	
