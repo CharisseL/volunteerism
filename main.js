@@ -1,3 +1,17 @@
+//getJSON(with url, function(JSON data) {blah}
+// getJSON(http2, 
+
+function getJSON(url, cb){
+	var xhr = new XMLHttpRequest();
+	xhr.open('GET', url); //get request to a url, setting url and verb for request
+	xhr.onload = function() {			//setup onload request
+		cb(JSON.parse(xhr.responseText));	
+	};
+	xhr.send();			//send request; sets 
+}	
+
+
+
 function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
 }
@@ -37,8 +51,10 @@ function hide(element){
 //add eventListener..what happens on the click
 document.addEventListener('DOMContentLoaded', function(){
   var $form = document.getElementById('generate-group');
-	var students = ['charisse', 'evan', 'greg','jessica', 'luke', 'gerald', 'adam', 'sonda', 'beck', 'leon'];
-
+	var students;
+	getJSON('https://volunteerism-cnl.firebaseio.com/students.json', function(data){
+		students = data;
+	});
 	var $select = $form.querySelector('select');
 	var $numBox = $form.querySelector('input[type=number]');
 	$select.addEventListener('change', function (event){
